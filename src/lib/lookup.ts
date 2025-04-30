@@ -1,4 +1,5 @@
-import { maxDataAge } from "@/config";
+import { DiscordServer } from "@/types/lookup";
+import { maxDataAge, discordServers } from "@/config";
 
 export default class Lookup {
     private static data: any = {};
@@ -29,6 +30,13 @@ export default class Lookup {
 
     public static getDataStats() {
 
+    }
+
+
+
+    // Server Handler
+    public static async getServerFromId(id: string): Promise<DiscordServer | false> {
+      return discordServers[id] || { name: "Unknown", id, type: "unknown" };
     }
   
     public static async getUserFromId(id: string): Promise<any | false> {

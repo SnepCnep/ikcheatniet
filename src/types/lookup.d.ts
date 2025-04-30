@@ -1,6 +1,9 @@
+export interface DiscordServer {
+    name: string;
+    id: string;
+    type: "customer" | "community" | "cheats" | "other"
+}
+
 export interface DiscordServerMap {
-    [key: string]: {
-      name: string;
-      id: string;
-    };
+    [key: string]: DiscordServer;
   }
