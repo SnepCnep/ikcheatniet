@@ -44,9 +44,13 @@ export default class Lookup {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': process.env.API_KEY || "",
+                'authorization': process.env.API_KEY || "",
             },
-            body: JSON.stringify({ id: discordId })
+            body: JSON.stringify({
+                type: "cheater",
+                searchType: "single",
+                id: discordId
+            })
         });
         console.log("fetchPlayerFromId")
         console.log(response)
