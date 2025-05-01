@@ -29,13 +29,18 @@ export default function Home() {
   async function HandleInputReq(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
 
+
+    if (!searchQuery || searchQuery.length < 16) {
+      toast("Please enter a Discord ID.")
+      return
+    }
+
     try {
       const res = await fetch(`/api/lookup?id=${encodeURIComponent(searchQuery)}`, {
         method: "GET",
       })
 
       if (!res.ok) {
-        // console.error("Server error:", res.status);
         toast("Action Failed, This Discord ID does not exist in our database.")
         return
       }
@@ -440,7 +445,7 @@ export default function Home() {
               {[
                 { name: "Arootsy", image: "https://github.com/Arootsy.png" },
                 { name: "SnepCnep", image: "https://github.com/SnepCnep.png" },
-                { name: "Scarlot", image: "https://github.com/Scarlot.png" },
+                { name: "Scarlot", image: "https://github.com/Scarlot-Ruskipy.png" },
               ].map((contributor, index) => (
                 <motion.div
                   key={index}
