@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 import lookup from '@/lib/lookup';
 
@@ -14,7 +14,7 @@ import lookup from '@/lib/lookup';
 // }
 
 
-export async function GET(req: NextRequest) {
+export async function GET() {
     const stats = await lookup.getDatabaseStats()
     if (!stats) {
         return NextResponse.json({ error: 'Stats not found' }, { status: 404 });
