@@ -31,7 +31,7 @@ export default function Home() {
 
 
     if (!searchQuery || searchQuery.length < 16) {
-      toast("Please enter a Discord ID.")
+      toast("Please enter a valid Discord ID.", { style: { backgroundColor: "#f87171" } })
       return
     }
 
@@ -41,7 +41,7 @@ export default function Home() {
       })
 
       if (!res.ok) {
-        toast("Action Failed, This Discord ID does not exist in our database.")
+        toast("Action Failed, This Discord ID does not exist in our database.", { style: { backgroundColor: "#f87171" } })
         return
       }
 
@@ -77,7 +77,7 @@ export default function Home() {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        console.log("Copied to clipboard")
+        toast("Discord ID copied to clipboard!", { style: { backgroundColor: "#67e8f9" } })
       })
       .catch((err) => {
         console.error("Failed to copy: ", err)
