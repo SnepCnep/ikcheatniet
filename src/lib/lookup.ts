@@ -39,11 +39,12 @@ export default class Lookup {
     }
 
     private static async fetchPlayerFromId(discordId: string) {
+        const apiKey = ((process.env.NODE_ENV === 'development') ? process.env.DEV_API_KEY : process.env.API_KEY );
         const response = await fetch(`${process.env.API_BASE_URL}/lookup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authorization': process.env.API_KEY || "",
+                'authorization': (apiKey || ''),
             },
             body: JSON.stringify({
                 type: "cheater",
