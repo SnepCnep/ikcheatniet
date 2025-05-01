@@ -41,6 +41,7 @@ export default function Home() {
       }
 
       const data = await res.json()
+      console.log(userData)
       setUserData(data)
       setServersExpanded(false)
     } catch (err) {
@@ -119,7 +120,7 @@ export default function Home() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
-        className="w-full max-w-3xl"
+        className="w-full max-w-4xl"
       >
         <motion.div
           className="bg-white rounded-xl shadow-xl overflow-hidden p-8 border border-gray-100"
@@ -438,9 +439,9 @@ export default function Home() {
             <h3 className="text-xl font-semibold text-gray-700 mb-4 text-center">Contributors</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                { name: "Arootsy", image: "https://github.com/Arootsy.png" },
-                { name: "SnepCnep", image: "https://github.com/SnepCnep.png" },
-                { name: "Scarlot", image: "https://github.com/Scarlot.png" },
+                { name: "Arootsy", image: "https://github.com/Arootsy.png", role: "Front-End Developer" },
+                { name: "SnepCnep", image: "https://github.com/SnepCnep.png", role: "Back-End Developer" },
+                { name: "Scarlot", image: "https://github.com/Scarlot.png", role: "Back-End Developer" },
               ].map((contributor, index) => (
                 <motion.div
                   key={index}
@@ -459,7 +460,7 @@ export default function Home() {
                     />
                   </div>
                   <span className="text-gray-800 font-medium text-lg">{contributor.name}</span>
-                  <span className="text-gray-500 text-sm">Contributor</span>
+                  <span className="text-gray-500 text-sm">{`Contributor • ${contributor.role}`}</span>
                 </motion.div>
               ))}
             </div>
