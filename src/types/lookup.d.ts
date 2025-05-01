@@ -6,4 +6,4 @@ export interface DiscordServer {
 
 export interface DiscordServerMap {
     [key: string]: DiscordServer;
-  }
+}
