@@ -9,16 +9,16 @@ function isValidDiscordId(discordId: string): boolean {
     return isValidFormat && isValidLength;
 }
 
-function isReqeustAuth(req: NextRequest): boolean {
-    const referer = req.headers.get('referer') || req.headers.get('origin');
-    const origin = req.credentials === 'same-origin'
+// function isReqeustAuth(req: NextRequest): boolean {
+//     const referer = req.headers.get('referer') || req.headers.get('origin');
+//     const origin = req.credentials === 'same-origin'
 
-    if (!referer || !origin) {
-        return false
-    }
+//     if (!referer || !origin) {
+//         return false
+//     }
 
-    return true
-}
+//     return true
+// }
 
 
 export async function GET(req: NextRequest) {
@@ -32,9 +32,9 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid discordId' }, { status: 400 });
     }
 
-    if (!isReqeustAuth(req)) {
-        return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
-    }
+    // if (!isReqeustAuth(req)) {
+    //     return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
+    // }
 
     const user = await discord.getUserFromId(discordId)
     if (!user) {
