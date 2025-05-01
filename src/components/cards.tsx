@@ -99,7 +99,7 @@ export function Cards() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center">
                 <Shield className="mr-2 h-5 w-5 text-red-500" />
-                Cheaters
+                Users
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -115,12 +115,12 @@ export function Cards() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center">
                 <Search className="mr-2 h-5 w-5 text-yellow-500" />
-                    Lookups
+                    Servers
               </CardTitle>
             </CardHeader>
             <CardContent>
                 <NumberTicker 
-                    value={stats.activeBans.toLocaleString()}
+                    value={stats?.activeBans || 0}
                     className="text-3xl font-bold"
                 />
               <CardDescription className="text-zinc-800">Users who used the search function</CardDescription>
@@ -131,7 +131,7 @@ export function Cards() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center">
                 <Users className="mr-2 h-5 w-5 text-blue-500" />
-                    Detections
+                    Last Update
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -153,7 +153,7 @@ export function Cards() {
             <CardContent>
                 <div className="flex">
                     <NumberTicker
-                        value={parseFloat(stats.databaseSize || 0).toFixed
+                        value={parseFloat(stats.databaseSize || "0").toFixed
                             ? parseFloat(parseFloat(stats.databaseSize).toFixed(1))
                             : 0}
                         decimalPlaces={1}
