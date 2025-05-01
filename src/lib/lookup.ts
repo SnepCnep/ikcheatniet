@@ -100,8 +100,10 @@ export default class Lookup {
         if (this.databaseStatsCache.has("stats")) {
             return this.databaseStatsCache.get("stats")
         }
+
         const stats = await this.fetchDatabaseStats()
-        if (!stats) {
+
+        if (!stats || !stats?.totalCheaters || !stats?.totalServers) {
             return {}
         }
 
