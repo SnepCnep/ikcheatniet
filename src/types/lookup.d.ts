@@ -1,8 +1,5 @@
-export interface DiscordServer {
-    name: string;
-    id: string;
-    type: "customer" | "community" | "cheats" | "other"
-}
-export interface DiscordServerMap {
-    [key: string]: DiscordServer;
+export interface LookupStats {
+    total_size: number;
+    total_entries: number;
+    last_modified: number;
 }
