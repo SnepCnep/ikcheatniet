@@ -6,33 +6,29 @@ export default class DiscordUserService {
     private static userCacheTimeout: number = 1000 * 60 * 30; // 30 minuten
 
     private static async fetchUserFromId(discordId: string): Promise<UserInformation | null> {
-        try {
-            const response = await fetch(`https://discord.com/api/v9/users/${discordId}`, {
-                headers: {
-                    Authorization: `Bot ${process.env.BOT_TOKEN}`,
-                }
-            });
-
-            if (!response.ok) {
-                return null;
+        const response = await fetch(`https://discord.com/api/v9/users/${discordId}`, {
+            headers: {
+                Authorization: `Bot ${process.env.BOT_TOKEN}`,
             }
+        });
 
-            const data = await response.json();
-            if (!data?.id) {
-                return null;
-            }
-
-            return data as UserInformation;
-        } catch (error) {
+        if (!response.ok) {
             return null;
         }
+
+        const data = await response.json();
+        if (!data?.id) {
+            return null;
+        }
+
+        return data as UserInformation;
     }
 
     public static async getUserFromId(discordId: string): Promise<UserInformation | null> {
         if (this.userDoesNotExistCache.get(discordId)) {
             return null;
         }
-    
+
         const cachedUser = this.userCache.get(discordId);
         if (cachedUser) {
             return cachedUser;
