@@ -4,7 +4,7 @@ export default class Lookup {
     private static userCache: Map<string, string> = new Map<string, string>();
     private static userCacheTimeout: number = 1000 * 60 * 5; // 5 minutes
 
-    private static async handleServersData(servers: any): Promise<{ id: string; name: string; type: string }[]> {
+    private static async handleServersData(servers: string): Promise<{ id: string; name: string; type: string }[]> {
         if (!servers || !Array.isArray(servers)) {
             return [];
         }
@@ -14,7 +14,7 @@ export default class Lookup {
             const match = server.match(/^(\d+):(.+)$/);
             if (!match) continue;
     
-            const [_, serverId, serverName] = match;
+            const [, serverId, serverName] = match;
     
             if (discordServers[serverId]) {
                 serverList.push({
@@ -34,12 +34,6 @@ export default class Lookup {
     }
 
     private static async fetchPlayerFromId(discordId: string) {
-        // const response = await fetch(`${process.env.API_BASE_URL}/lookup?id=${discordId}`, {
-        //     method: 'GET',
-        //     headers: {
-        //         'authorization': process.env.API_KEY || "",
-        //     }
-        // })
         const response = await fetch(`${process.env.API_BASE_URL}/lookup`, {
             method: 'POST',
             headers: {
@@ -52,8 +46,6 @@ export default class Lookup {
                 id: discordId
             })
         });
-        console.log("fetchPlayerFromId")
-        console.log(response)
 
         if (!response.ok) {
             return []

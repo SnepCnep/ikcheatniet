@@ -14,19 +14,16 @@ export default class DiscordUserService {
             });
 
             if (!response.ok) {
-                console.warn(`Discord API error for ID ${discordId}: ${response.status}`);
                 return null;
             }
 
             const data = await response.json();
             if (!data?.id) {
-                console.warn(`Invalid user data returned for ID ${discordId}`);
                 return null;
             }
 
             return data as UserInformation;
         } catch (error) {
-            console.error(`Error fetching user ${discordId}:`, error);
             return null;
         }
     }

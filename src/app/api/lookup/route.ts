@@ -21,7 +21,7 @@ function isReqeustAuth(req: NextRequest): boolean {
 }
 
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
     const { searchParams } = req.nextUrl;
     const discordId = searchParams.get('id')
     if (!discordId) {
@@ -32,9 +32,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
         return NextResponse.json({ error: 'Invalid discordId' }, { status: 400 });
     }
 
-    // if (!isReqeustAuth(req)) {
-    //     return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
-    // }
+    if (!isReqeustAuth(req)) {
+        return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
+    }
 
     const user = await discord.getUserFromId(discordId)
     if (!user) {
