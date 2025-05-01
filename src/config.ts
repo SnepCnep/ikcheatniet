@@ -97,12 +97,12 @@ export const discordServers: DiscordServerMap = {
     "1178336661063614586": {
         name: "Stealth Outlet",
         id: "1178336661063614586",
-        type: "other",
+        type: "spoofer",
     },
     "1337773389217267712": {
         name: "Fresh Bypass",
         id: "1337773389217267712",
-        type: "other",
+        type: "spoofer",
     },
 
     // Community / Stores
@@ -114,12 +114,12 @@ export const discordServers: DiscordServerMap = {
     "1341910086641254402": {
         name: "We Fight fivem Cheats",
         id: "1341910086641254402",
-        type: "other",
+        type: "community",
     },
     "1142916323844833361": {
         name: "ShaFivem Support",
         id: "1142916323844833361",
-        type: "other",
+        type: "reseller",
     },
 
     // IRL Trading
