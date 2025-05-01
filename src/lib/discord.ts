@@ -3,7 +3,7 @@ import { UserInformation } from "@/types/discord";
 export default class DiscordUserService {
     private static userCache: Map<string, UserInformation> = new Map();
     private static userDoesNotExistCache: Map<string, boolean> = new Map();
-    private static userCacheTimeout: number = 1000 * 60 * 25; // 25 minuten
+    private static userCacheTimeout: number = 1000 * 60 * 30; // 30 minuten
 
     private static async fetchUserFromId(discordId: string): Promise<UserInformation | null> {
         try {
