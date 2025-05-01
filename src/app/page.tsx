@@ -10,57 +10,65 @@ import { Search, AlertCircle, Shield, Server, ChevronDown, Copy, X } from "lucid
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text"
 import { Cards } from "@/components/cards"
 import Image from "next/image"
+
+
+// types
+interface UserData {
+    discordId: string
+    username: string
+    avatar: string | null
+    banner: string | null
+    blacklistedservers: { id: string; name: string; type: string }[] | null
+}
+
+
 export default function Home() {
     const [searchQuery, setSearchQuery] = useState("")
-    const [userData, setUserData] = useState(null)
-    const [expanded, setExpanded] = useState(false)
+    const [userData, setUserData] = useState<UserData | null>(null)
     const [serversExpanded, setServersExpanded] = useState(false)
 
-    async function HandleInputReq(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
+    async function HandleInputReq(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+        e.preventDefault();
 
         try {
             const res = await fetch(`/api/lookup?id=${encodeURIComponent(searchQuery)}`, {
                 method: "GET",
-            })
+            });
 
             if (!res.ok) {
-                console.error("Server error:", res.status)
-                return
+                console.error("Server error:", res.status);
+                return;
             }
 
-            const data = await res.json()
-            console.log("Success:", data)
-            setUserData(data)
-            setExpanded(true)
-            setServersExpanded(false)
+            const data = await res.json();
+            setUserData(data);
+            setServersExpanded(false);
         } catch (err) {
-            console.error("Fout bij ophalen:", err)
+            console.error("Fout bij ophalen:", err);
         }
     }
 
     const resetSearch = () => {
         setUserData(null)
         setSearchQuery("")
-        setExpanded(false)
         setServersExpanded(false)
     }
 
-    const getAvatarUrl = (userId, avatarHash) => {
+    const getAvatarUrl = (userId: string | null, avatarHash: string | null) => {
         if (!avatarHash) return "/discordico.webp"
         const isGif = avatarHash.startsWith("a_")
         const ext = isGif ? "gif" : "png"
         return `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=128`
     }
 
-    const getBannerUrl = (userId, bannerHash) => {
+    const getBannerUrl = (userId: string | null, bannerHash: string | null) => {
         if (!bannerHash) return null
         const isGif = bannerHash.startsWith("a_")
         const ext = isGif ? "gif" : "png"
         return `https://cdn.discordapp.com/banners/${userId}/${bannerHash}.${ext}?size=600`
     }
 
-    const copyToClipboard = (text) => {
+    const copyToClipboard = (text: string) => {
         navigator.clipboard
             .writeText(text)
             .then(() => {
@@ -143,13 +151,14 @@ export default function Home() {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
 
-                        <Button
-                            type="submit"
-                            onClick={(e) => HandleInputReq(e)}
-                            className="hover:cursor-pointer absolute top-1/2 -translate-y-1/2 right-2 h-9 w-9 rounded-full bg-gradient-to-r from-[#067fb8] to-[#22b4ee] hover:opacity-90 flex items-center justify-center transition-all"
-                        >
-                            <Search className="h-5 w-5 text-white" />
-                        </Button>
+                        <form onSubmit={HandleInputReq}>
+                            <Button
+                                type="submit"
+                                className="hover:cursor-pointer absolute top-1/2 -translate-y-1/2 right-2 h-9 w-9 rounded-full bg-gradient-to-r from-[#067fb8] to-[#22b4ee] hover:opacity-90 flex items-center justify-center transition-all"
+                            >
+                                <Search className="h-5 w-5 text-white" />
+                            </Button>
+                        </form>
                     </div>
 
                     <div className="mt-6">
@@ -217,8 +226,8 @@ export default function Home() {
                                                 animate={{ opacity: 1, scale: 1 }}
                                                 transition={{ delay: 0.3, duration: 0.2 }}
                                                 className={`absolute top-3 right-3 px-2 py-1 text-xs font-bold rounded-full shadow-md ${userData.blacklistedservers && userData.blacklistedservers.length > 0
-                                                        ? "bg-red-500"
-                                                        : "bg-green-500"
+                                                    ? "bg-red-500"
+                                                    : "bg-green-500"
                                                     }`}
                                             >
                                                 <div className="flex items-center gap-1">
@@ -390,7 +399,7 @@ export default function Home() {
                                     className="flex flex-wrap gap-2"
                                 >
                                     <div className="text-sm text-gray-500">Popular searches:</div>
-                                    {["1171497849406632047", "898950834757447780", "630029784302485524", "713448937490481182"].map(
+                                    {["630029784302485524", "483357154502377473", "713448937490481182", "158936675483910144"].map(
                                         (tag, index) => (
                                             <motion.span
                                                 key={index}
