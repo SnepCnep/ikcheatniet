@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -21,10 +21,36 @@ interface UserData {
   blacklistedservers: { id: string; name: string; type: string }[] | null
 }
 
+interface ServerData {
+  totalCheaters: number
+  activeBans: number
+  recentDetections: number
+  databaseSize: string
+}
+
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [userData, setUserData] = useState<UserData | null>(null)
+  const [serverData, setServerData] = useState<ServerData | null>(null)
   const [serversExpanded, setServersExpanded] = useState(false)
+
+  useEffect(() => {
+    const fetchServerData = async () => {
+
+      try {
+        const res = await fetch('/api/stats', {
+          method: "GET",
+        })
+        if (!res.ok) throw new Error("Failed to fetch server data")
+        const data = await res.json()
+        console.log(data)
+        setServerData(data)
+      } catch (error) {
+        console.error("Error fetching server data:", error)
+      }
+    }
+    fetchServerData()
+  }, [])
 
   async function HandleInputReq(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
@@ -230,11 +256,10 @@ export default function Home() {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3, duration: 0.2 }}
-                        className={`absolute top-3 right-3 px-2 py-1 text-xs font-bold rounded-full shadow-md ${
-                          userData.blacklistedservers && userData.blacklistedservers.length > 0
+                        className={`absolute top-3 right-3 px-2 py-1 text-xs font-bold rounded-full shadow-md ${userData.blacklistedservers && userData.blacklistedservers.length > 0
                             ? "bg-red-500"
                             : "bg-green-500"
-                        }`}
+                          }`}
                       >
                         <div className="flex items-center gap-1">
                           <AlertCircle className="h-3 w-3" />
