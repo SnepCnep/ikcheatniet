@@ -92,6 +92,11 @@ export const discordServers: DiscordServerMap = {
         id: "1263711727485194312",
         type: "cheats",
     },
+    "954166828177977344": {
+        name: "Lumia Menu",
+        id: "954166828177977344",
+        type: "cheats",
+    },
 
     // Other Sorts
     "1178336661063614586": {
