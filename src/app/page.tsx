@@ -456,9 +456,9 @@ export default function Home() {
           className="mt-6"
         >
           <Cards
-            totalCheaters={serverData?.total_entries}
-            lastUpdate={serverData?.last_modified}
-            totalSize={serverData?.total_size}
+            totalCheaters={serverData?.total_entries || 0}
+            lastUpdate={Number(serverData?.last_modified) || 0}
+            totalSize={serverData?.total_size || 0}
           />
         </motion.div>
         <motion.div

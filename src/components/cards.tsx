@@ -80,13 +80,13 @@ import { motion } from "motion/react"
 import { Shield, Users, Database, Search } from "lucide-react"
 import { NumberTicker } from "@/components/magicui/number-ticker"
 
-export function Cards({ totalCheaters, lastUpdate, totalSize }) {
+export function Cards({ totalCheaters, lastUpdate, totalSize }: { totalCheaters: number, lastUpdate: number, totalSize: number }) {
     const stats = {
         totalCheaters: totalCheaters || 24783,
         lastUpdate: lastUpdate || Date.now(),
         activeBans: totalSize || 18452,
         databaseSize: '1.2',
-        servers: '100+'
+        servers: 100,
     }
 
     
@@ -107,7 +107,7 @@ export function Cards({ totalCheaters, lastUpdate, totalSize }) {
           </CardHeader>
           <CardContent>
             <NumberTicker
-              value={stats.totalCheaters}
+              value={stats.totalCheaters || 0}
               className="text-3xl font-bold"
             />
             <CardDescription className="text-zinc-800">Total flagged accounts</CardDescription>
