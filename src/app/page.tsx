@@ -458,9 +458,6 @@ export default function Home() {
           <Cards
             totalCheaters={serverData?.total_entries || 0}
             lastUpdate={Number(serverData?.last_modified) || 0}
-            totalSize={serverData?.total_size || 0}
-            totalCheaters={serverData?.total_entries}
-            lastUpdate={serverData?.last_modified}
           />
         </motion.div>
         <motion.div
