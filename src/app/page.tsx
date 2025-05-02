@@ -21,17 +21,16 @@ interface UserData {
   blacklistedservers: { id: string; name: string; type: string }[] | null
 }
 
-// interface ServerData {
-//   totalCheaters: number
-//   activeBans: number
-//   recentDetections: number
-//   databaseSize: string
-// }
+interface ServerData {
+  last_modified: Date
+  total_entries: number
+  total_size: number
+}
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [userData, setUserData] = useState<UserData | null>(null)
-  // const [serverData, setServerData] = useState<ServerData | null>(null)
+  const [serverData, setServerData] = useState<ServerData | null>(null)
   const [serversExpanded, setServersExpanded] = useState(false)
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export default function Home() {
         if (!res.ok) throw new Error("Failed to fetch server data")
         const data = await res.json()
         console.log(data)
-        // setServerData(data)
+        setServerData(data)
       } catch (error) {
         console.error("Error fetching server data:", error)
       }
@@ -456,7 +455,11 @@ export default function Home() {
           transition={{ delay: 0.9, duration: 0.5 }}
           className="mt-6"
         >
-          <Cards />
+          <Cards
+            totalCheaters={serverData?.total_entries}
+            lastUpdate={serverData?.last_modified}
+            totalSize={serverData?.total_size}
+          />
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
