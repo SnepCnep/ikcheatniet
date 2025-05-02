@@ -446,32 +446,37 @@ export default function Home() {
               {[
                 { name: "Arootsy", image: "https://github.com/Arootsy.png", role: "Front-End Developer" },
                 { name: "SnepCnep", image: "https://github.com/SnepCnep.png", role: "Back-End Developer" },
-                { name: "Scarlot", image: "https://github.com/Scarlot.png", role: "Back-End Developer" },
-                { name: "Arootsy", image: "https://github.com/Arootsy.png" },
-                { name: "SnepCnep", image: "https://github.com/SnepCnep.png" },
-                { name: "Scarlot", image: "https://github.com/Scarlot-Ruskipy.png" },
-              ].map((contributor, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2 + index * 0.1, duration: 0.4 }}
-                  className="flex flex-col items-center bg-gray-50 rounded-lg p-4 hover:shadow-md transition-all"
-                >
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[#067fb8] mb-3">
-                    <Image
-                      src={contributor.image || "/placeholder.svg"}
-                      alt={`${contributor.name}'s GitHub profile`}
-                      width={80}
-                      height={80}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                  <span className="text-gray-800 font-medium text-lg">{contributor.name}</span>
-                  <span className="text-gray-500 text-sm">{`Contributor • ${contributor.role}`}</span>
-                </motion.div>
-              ))}
+                { name: "Scarlot-Ruskipy", image: "https://github.com/Scarlot-Ruskipy.png", role: "Back-End Developer" },
+              ].map((contributor, index) => {
+                const githubUrl = `https://github.com/${contributor.name}`;
+
+                return (
+                  <motion.a
+                    key={index}
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.2 + index * 0.1, duration: 0.4 }}
+                    className="flex flex-col items-center bg-gray-50 rounded-lg p-4 hover:shadow-md transition-all cursor-pointer"
+                  >
+                    <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-[#067fb8] mb-3">
+                      <Image
+                        src={contributor.image || "/placeholder.svg"}
+                        alt={`${contributor.name}'s GitHub profile`}
+                        width={80}
+                        height={80}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <span className="text-gray-800 font-medium text-lg">{contributor.name}</span>
+                    <span className="text-gray-500 text-sm">{`Contributor • ${contributor.role}`}</span>
+                  </motion.a>
+                );
+              })}
             </div>
+
           </div>
         </motion.div>
       </motion.div>
