@@ -72,7 +72,6 @@ export default function Home() {
       }
 
       const data = await res.json()
-      console.log(userData)
       setUserData(data)
       setServersExpanded(false)
     } catch (err) {
