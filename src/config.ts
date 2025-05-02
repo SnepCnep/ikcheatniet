@@ -68,8 +68,18 @@ export const discordServers: DiscordServerMap = {
         type: "cheats",
     },
     "1190354743181185075": {
-        name: "Skript.gg",
+        name: "Skript.gg #1",
         id: "1190354743181185075",
+        type: "cheats",
+    },
+    "899785629523660881": {
+        name: "Skript.gg #2",
+        id: "899785629523660881",
+        type: "cheats",
+    },
+    "1308139661801160715": {
+        name: "Elusive - Public",
+        id: "1308139661801160715",
         type: "cheats",
     },
     "1110205216730660995": {
