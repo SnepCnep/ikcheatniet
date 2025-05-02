@@ -31,7 +31,7 @@ interface ServerData {
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [userData, setUserData] = useState<UserData | null>(null)
-  const [serverData, setServerData] = useState<ServerData | null>(null)
+  // const [serverData, setServerData] = useState<ServerData | null>(null)
   const [serversExpanded, setServersExpanded] = useState(false)
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Home() {
         if (!res.ok) throw new Error("Failed to fetch server data")
         const data = await res.json()
         console.log(data)
-        setServerData(data)
+        // setServerData(data)
       } catch (error) {
         console.error("Error fetching server data:", error)
       }
