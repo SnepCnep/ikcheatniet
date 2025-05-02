@@ -21,12 +21,12 @@ interface UserData {
   blacklistedservers: { id: string; name: string; type: string }[] | null
 }
 
-interface ServerData {
-  totalCheaters: number
-  activeBans: number
-  recentDetections: number
-  databaseSize: string
-}
+// interface ServerData {
+//   totalCheaters: number
+//   activeBans: number
+//   recentDetections: number
+//   databaseSize: string
+// }
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
