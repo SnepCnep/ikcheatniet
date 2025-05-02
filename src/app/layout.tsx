@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@vercel/analytics/react"
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -37,6 +39,9 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
+        {children}
+        <Toaster />
+        <Analytics/>
       </body>
     </html>
   );
