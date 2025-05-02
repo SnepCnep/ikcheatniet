@@ -29,14 +29,19 @@ export default function Home() {
   async function HandleInputReq(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault()
 
+
+    if (!searchQuery || searchQuery.length < 16) {
+      toast("Please enter a valid Discord ID.", { style: { backgroundColor: "#f87171" } })
+      return
+    }
+
     try {
       const res = await fetch(`/api/lookup?id=${encodeURIComponent(searchQuery)}`, {
         method: "GET",
       })
 
       if (!res.ok) {
-        // console.error("Server error:", res.status);
-        toast("Action Failed, This Discord ID does not exist in our database.")
+        toast("Action Failed, This Discord ID does not exist in our database.", { style: { backgroundColor: "#f87171" } })
         return
       }
 
@@ -73,7 +78,7 @@ export default function Home() {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        console.log("Copied to clipboard")
+        toast("Discord ID copied to clipboard!", { style: { backgroundColor: "#67e8f9" } })
       })
       .catch((err) => {
         console.error("Failed to copy: ", err)
@@ -442,6 +447,9 @@ export default function Home() {
                 { name: "Arootsy", image: "https://github.com/Arootsy.png", role: "Front-End Developer" },
                 { name: "SnepCnep", image: "https://github.com/SnepCnep.png", role: "Back-End Developer" },
                 { name: "Scarlot", image: "https://github.com/Scarlot.png", role: "Back-End Developer" },
+                { name: "Arootsy", image: "https://github.com/Arootsy.png" },
+                { name: "SnepCnep", image: "https://github.com/SnepCnep.png" },
+                { name: "Scarlot", image: "https://github.com/Scarlot-Ruskipy.png" },
               ].map((contributor, index) => (
                 <motion.div
                   key={index}
