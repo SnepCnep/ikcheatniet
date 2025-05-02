@@ -103,7 +103,7 @@ export default class Lookup {
 
         const stats = await this.fetchDatabaseStats()
 
-        if (!stats || !stats?.totalCheaters || !stats?.totalServers) {
+        if (!stats || !stats?.total_size || !stats?.total_entries) {
             return {}
         }
 

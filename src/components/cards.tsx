@@ -88,6 +88,8 @@ export function Cards() {
         databaseSize: "1.2 GB",
     }
 
+    
+
     return (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -159,7 +161,7 @@ export function Cards() {
                         decimalPlaces={1}
                         className="text-3xl font-bold"
                     />
-                    <h1 className="font-bold text-xl mt-[7px]">K</h1>
+                    <h1 className="font-bold text-xl mt-[7px]">GB</h1>
                 </div>
               <CardDescription className="text-zinc-800">Total size of cheat detection data</CardDescription>
             </CardContent>
