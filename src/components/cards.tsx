@@ -16,30 +16,28 @@ export function Cards({ totalCheaters, lastUpdate }: CardsProps) {
     servers: 100
   }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4, duration: 0.5 }}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-    >
-      <Card className="bg-white rounded-xl shadow-xl border-gray-100">
-        <CardHeader>
-          <CardTitle className="text-lg flex items-center">
-            <Shield className="mr-2 h-5 w-5 text-red-500" />
-            Users
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <NumberTicker
-            value={stats.totalCheaters}
-            className="text-3xl font-bold"
-          />
-          <CardDescription className="text-zinc-800">
-            Total flagged accounts
-          </CardDescription>
-        </CardContent>
-      </Card>
+    return (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        >
+        <Card className="bg-white rounded-xl shadow-xl border-gray-100">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center">
+              <Shield className="mr-2 h-5 w-5 text-red-500" />
+              Users
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <NumberTicker
+              value={stats.totalCheaters}
+              className="text-3xl font-bold"
+            />
+            <CardDescription className="text-zinc-800">Total flagged accounts</CardDescription>
+          </CardContent>
+        </Card>
 
       <Card className="bg-white rounded-xl shadow-xl border-gray-100">
         <CardHeader>
