@@ -88,6 +88,8 @@ export function Cards() {
         databaseSize: "1.2 GB",
     }
 
+    
+
     return (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
