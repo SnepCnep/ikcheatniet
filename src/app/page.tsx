@@ -22,7 +22,7 @@ interface UserData {
 }
 
 interface ServerData {
-  last_modified: Date
+  last_modified: number
   total_entries: number
   total_size: number
 }
@@ -458,7 +458,6 @@ export default function Home() {
           <Cards
             totalCheaters={serverData?.total_entries}
             lastUpdate={serverData?.last_modified}
-            totalSize={serverData?.total_size}
           />
         </motion.div>
         <motion.div
