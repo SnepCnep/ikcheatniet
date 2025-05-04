@@ -117,7 +117,7 @@ export const discordServers: DiscordServerMap = {
     "1337773389217267712": {
         name: "Fresh Bypass",
         id: "1337773389217267712",
-        type: "spoofer",
+        type: "other",
     },
 
     // Community / Stores
