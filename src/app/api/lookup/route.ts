@@ -11,6 +11,10 @@ function isValidDiscordId(discordId: string): boolean {
 }
 
 export async function GET(req: NextRequest) {
+    if (!rateLimit(req)) {
+        return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+    }
+    
     const { searchParams } = req.nextUrl;
     const discordId = searchParams.get('id')
     if (!discordId) {
