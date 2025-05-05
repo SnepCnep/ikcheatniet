@@ -72,16 +72,6 @@ export const discordServers: DiscordServerMap = {
         id: "1190354743181185075",
         type: "cheats",
     },
-    "899785629523660881": {
-        name: "Skript.gg #2",
-        id: "899785629523660881",
-        type: "cheats",
-    },
-    "1308139661801160715": {
-        name: "Elusive - Public",
-        id: "1308139661801160715",
-        type: "cheats",
-    },
     "1110205216730660995": {
         name: "Tiago Modz",
         id: "1110205216730660995",
@@ -97,6 +87,11 @@ export const discordServers: DiscordServerMap = {
         id: "1339264303286583398",
         type: "cheats",
     },
+    "1252604547113947219": {
+        name: "RedEngine Private",
+        id: "1252604547113947219",
+        type: "cheats",
+    },
     "1263711727485194312": {
         name: "Yusei.cc",
         id: "1263711727485194312",
@@ -107,17 +102,57 @@ export const discordServers: DiscordServerMap = {
         id: "954166828177977344",
         type: "cheats",
     },
+    "899785629523660881": {
+        name: "Skript.gg #2",
+        id: "899785629523660881",
+        type: "cheats",
+    },
+    "1308139661801160715": {
+        name: "Elusive - Public",
+        id: "1308139661801160715",
+        type: "cheats",
+    },
+    "1196178039906779147": {
+        name: "Noble Modz",
+        id: "1196178039906779147",
+        type: "cheats",
+    },
 
     // Other Sorts
     "1178336661063614586": {
         name: "Stealth Outlet",
         id: "1178336661063614586",
-        type: "spoofer",
+        type: "reseller",
     },
     "1337773389217267712": {
         name: "Fresh Bypass",
         id: "1337773389217267712",
         type: "other",
+    },
+    "1200124786773327902": {
+        name: "Phantom",
+        id: "1200124786773327902",
+        type: "reseller",
+    },
+    "1276623057229840425": {
+        name: "Para Selling",
+        id: "1276623057229840425",
+        type: "reseller",
+    },
+    "1322933080876646513": {
+        name: "Susano Support",
+        id: "1322933080876646513",
+        type: "other",
+    },
+    "1320136424422506627": {
+        name: "420-SERVICE Tickets",
+        id: "1320136424422506627",
+        type: "other",
+    },
+    "1315098246514999307": {
+        name: "420-SERVICE",
+        id: "1315098246514999307",
+        type: "cheats",
     },
 
     // Community / Stores
