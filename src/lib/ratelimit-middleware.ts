@@ -2,7 +2,7 @@ const rateLimitStore = new Map<string, { count: number; lastRequest: number }>()
 const RATE_LIMIT = 2;
 const TIME_WINDOW = 60 * 1000 * 60;
 
-ecport default function rateLimit(req: NextRequest): boolean {
+export default function rateLimit(req: NextRequest): boolean {
     const ip = req.headers.get('x-forwarded-for') || req.ip || 'unknown';
     const now = Date.now();
     const record = rateLimitStore.get(ip) || { count: 0, lastRequest: now };
