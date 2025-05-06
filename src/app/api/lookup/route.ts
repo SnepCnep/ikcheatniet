@@ -3,6 +3,7 @@ import { isReqeustAuth } from '@/lib/utils';
 
 import lookup from '@/lib/lookup';
 import discord from '@/lib/discord';
+import rateLimit from "@/lib/rateLimit"
 
 function isValidDiscordId(discordId: string): boolean {
     const isValidFormat = /^\d+$/.test(discordId);
@@ -11,9 +12,6 @@ function isValidDiscordId(discordId: string): boolean {
 }
 
 export async function GET(req: NextRequest) {
-    if (!rateLimit(req)) {
-        return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
-    }
     
     const { searchParams } = req.nextUrl;
     const discordId = searchParams.get('id')
@@ -29,6 +27,10 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
     }
 
+    if (!rateLimit(req)) {
+        return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+    }
+    
     const user = await discord.getUserFromId(discordId)
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
