@@ -90,7 +90,7 @@ export const discordServers: DiscordServerMap = {
     "1252604547113947219": {
         name: "RedEngine Private",
         id: "1252604547113947219",
-        type: "cheats",
+        type: "customer",
     },
     "1263711727485194312": {
         name: "Yusei.cc",
