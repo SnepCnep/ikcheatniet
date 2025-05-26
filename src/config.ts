@@ -69,7 +69,7 @@ export const discordServers: DiscordServerMap = {
     },
     "1314957946383237130": {
         name: "Keyser Cheats",
-        id: "1252564455821283438",
+        id: "1314957946383237130",
         type: "cheats",
     },
     "1190354743181185075": {
