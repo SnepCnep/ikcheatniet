@@ -84,7 +84,7 @@ export const discordServers: DiscordServerMap = {
     },
     "1116161366684881010": {
         name: "Absolute Co.",
-        id: "1131251754940497955",
+        id: "1116161366684881010",
         type: "cheats",
     },
     "1339264303286583398": {
