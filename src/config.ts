@@ -19,7 +19,7 @@ export const discordServers: DiscordServerMap = {
     },
     "1079619316670021632": {
         name: "Susano",
-        id: "1136029776080023563",
+        id: "1079619316670021632",
         type: "cheats",
     },
     "1303841395156451418": {
