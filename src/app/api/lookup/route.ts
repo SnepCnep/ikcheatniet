@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isReqeustAuth } from '@/lib/utils';
+import { isRequestAuth } from '@/lib/utils';
 
 import lookup from '@/lib/lookup';
 import discord from '@/lib/discord';
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Invalid discordId' }, { status: 400 });
     }
 
-    if (!isReqeustAuth(req)) {
+    if (!isRequestAuth(req)) {
         return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
     }
     
