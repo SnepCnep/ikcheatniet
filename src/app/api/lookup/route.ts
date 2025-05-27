@@ -3,13 +3,6 @@ import { isReqeustAuth } from '@/lib/utils';
 
 import lookup from '@/lib/lookup';
 import discord from '@/lib/discord';
-import { checkRateLimit } from '@/lib/rateLimit';
-
-function getIp(req: NextRequest): string {
-    const xff = req.headers.get('x-forwarded-for');
-
-    return xff?.split(',')[0]?.trim() || req.ip || 'NOT FOUND'
-}
 
 function isValidDiscordId(discordId: string): boolean {
     const isValidFormat = /^\d+$/.test(discordId);
@@ -18,9 +11,9 @@ function isValidDiscordId(discordId: string): boolean {
 }
 
 export async function GET(req: NextRequest) {
+    
     const { searchParams } = req.nextUrl;
     const discordId = searchParams.get('id')
-
     if (!discordId) {
         return NextResponse.json({ error: 'Missing discordId' }, { status: 400 });
     }
@@ -32,19 +25,11 @@ export async function GET(req: NextRequest) {
     if (!isReqeustAuth(req)) {
         return NextResponse.json({ error: 'Invalid auth' }, { status: 403 });
     }
-
-    const ip = getIp(req);
-    const rateLimit = checkRateLimit(ip);
-
-    if (!rateLimit.allowed) {
-        return NextResponse.json({ error: rateLimit.error }, { status: 429 });
-    }
-
+    
     const user = await discord.getUserFromId(discordId)
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
-
     let servers = await lookup.getServersFromUserId(discordId)
     if (!servers) {
         servers = []
