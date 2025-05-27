@@ -19,7 +19,12 @@ export const discordServers: DiscordServerMap = {
     },
     "1079619316670021632": {
         name: "Susano",
-        id: "1136029776080023563",
+        id: "1079619316670021632",
+        type: "cheats",
+    },
+    "1142906613133496360": {
+        name: "Susano Private",
+        id: "1142906613133496360",
         type: "cheats",
     },
     "1303841395156451418": {
@@ -64,7 +69,7 @@ export const discordServers: DiscordServerMap = {
     },
     "1314957946383237130": {
         name: "Keyser Cheats",
-        id: "1252564455821283438",
+        id: "1314957946383237130",
         type: "cheats",
     },
     "1190354743181185075": {
@@ -79,7 +84,7 @@ export const discordServers: DiscordServerMap = {
     },
     "1116161366684881010": {
         name: "Absolute Co.",
-        id: "1131251754940497955",
+        id: "1116161366684881010",
         type: "cheats",
     },
     "1339264303286583398": {
