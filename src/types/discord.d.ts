@@ -8,7 +8,6 @@ export interface UserInformation {
 
 export interface DiscordServer {
     name: string;
-    id: string;
     type: "customer" | "community" | "cheats" | "reseller" | "spoofer" | "other"
 }
 export interface DiscordServerMap {
