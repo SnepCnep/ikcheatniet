@@ -1,4 +1,4 @@
-import { Github, MessageCircle } from "lucide-react"
+import { Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
