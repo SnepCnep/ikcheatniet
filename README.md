@@ -10,3 +10,5 @@ An initiative that stands for fair play, integrity, and community support.
 ### 🙌 Contributors
 
 A big thank you to everyone who contributed to this project. Your dedication and support make all the difference!
+
+Copyright © 2025 ikcheatniet. All rights reserved.
