@@ -9,10 +9,16 @@ function getUserById(userId: string) {
 
 
 // blacklist
-function isUserBlacklisted(userId: string) {
+function getBlacklistDetails(userId: string) {
   return prisma.blacklistUsers.findUnique({
     where: { userId: userId },
   });
+}
+
+function isUserBlacklisted(userId: string) {
+  return prisma.blacklistUsers.findFirst({
+    where: { userId: userId },
+  }).then(blacklist => !!blacklist);
 }
 
 function blacklistUser(userId: string, reason: string = "none", byAdmin: boolean = false) {
@@ -28,6 +34,9 @@ function blacklistUser(userId: string, reason: string = "none", byAdmin: boolean
 
 export {
     getUserById,
+
+    // Blacklist functions
+    getBlacklistDetails,
     isUserBlacklisted,
     blacklistUser
 }
