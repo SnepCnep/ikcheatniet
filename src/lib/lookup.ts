@@ -39,7 +39,7 @@ export default class Lookup {
     }
 
     private static async fetchPlayerFromId(discordId: string) {
-        const apiKey = ((process.env.NODE_ENV === 'development') ? process.env.DEV_API_KEY : process.env.API_KEY );
+        const apiKey = process.env.API_KEY;
         const response = await fetch(`${process.env.API_BASE_URL}/lookup`, {
             method: 'POST',
             headers: {
@@ -54,10 +54,12 @@ export default class Lookup {
         });
 
         if (!response.ok) {
+            console.log(`Failed to fetch player data for ID ${discordId}: ${response.statusText}`);
             return []
         }
         const data = await response.json();
         if (!data || !data.entries) {
+            console.log(`No entries found for ID ${discordId}`);
             return []
         }
 
