@@ -3,12 +3,21 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { signIn, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function Navbar() {
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
 
-    console.log(session)
+    const isAuth = status === "authenticated"
 
     return (
         <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
@@ -23,18 +32,41 @@ export function Navbar() {
                     <Link href="/" className="hover:text-primary transition-colors">
                         Home
                     </Link>
-                    <Link href="/dashboard" className="hover:text-primary transition-colors">
-                        Dashboard
+                    {isAuth && (
+                        <Link href="/dashboard" className="hover:text-primary transition-colors">
+                            Dashboard
+                        </Link>
+                    )}
+                    <Link href="/team" className="hover:text-primary transition-colors">
+                        Team
                     </Link>
-                    <Link href="/producten" className="hover:text-primary transition-colors">
-                        Producten
+                    <Link href="/partners" className="hover:text-primary transition-colors">
+                        Partners
                     </Link>
                 </div>
 
                 {/* Call-to-Action Button */}
-                <Button onClick={() => signIn("discord", { redirectTo: "/dashboard" })}>
-                    Inloggen met Discord
-                </Button>
+                {isAuth ? (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Avatar>
+                                <AvatarImage src={session.user?.image || ""} alt={session.user?.name || "User Avatar"} />
+                                <AvatarFallback>{session?.user?.name?.charAt(0) || "?"}</AvatarFallback>
+                            </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                ) : (
+                    <Button onClick={() => signIn("discord", { redirectTo: "/dashboard" })}>
+                        Login
+                    </Button>
+                )}
             </div>
         </nav>
     );
