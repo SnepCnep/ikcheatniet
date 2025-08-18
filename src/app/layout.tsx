@@ -18,12 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn("bg-white text-gray-900")}>
+      <body className={cn("bg-background text-gray-900")}>
         {/* Navbar */}
         <SessionProvider >
           <Navbar />
+          {children}
         </SessionProvider >
-        {children}
         <Analytics />
         {/* Page Content */}
         <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>

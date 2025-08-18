@@ -16,36 +16,32 @@ import {
 
 export function Navbar() {
     const { data: session, status } = useSession()
-
     const isAuth = status === "authenticated"
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+        <nav className="sticky top-0 z-50 w-full border-b bg-popover backdrop-blur-md">
             <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-                {/* Logo / Brand */}
-                <Link href="/" className="text-xl font-bold tracking-tight">
+                <Link href="/" className="text-xl font-bold tracking-tight text-primary">
                     IkCheatNiet
                 </Link>
 
-                {/* Navigation Links */}
                 <div className="hidden gap-6 md:flex">
-                    <Link href="/" className="hover:text-primary transition-colors">
+                    <Link href="/" className="text-primary transition-colors">
                         Home
                     </Link>
                     {isAuth && (
-                        <Link href="/dashboard" className="hover:text-primary transition-colors">
+                        <Link href="/dashboard" className="text-primary transition-colors">
                             Dashboard
                         </Link>
                     )}
-                    <Link href="/team" className="hover:text-primary transition-colors">
+                    <Link href="/team" className="text-primary transition-colors">
                         Team
                     </Link>
-                    <Link href="/partners" className="hover:text-primary transition-colors">
+                    <Link href="/partners" className="text-primary transition-colors">
                         Partners
                     </Link>
                 </div>
 
-                {/* Call-to-Action Button */}
                 {isAuth ? (
                     <DropdownMenu>
                         <DropdownMenuTrigger>
@@ -54,7 +50,7 @@ export function Navbar() {
                                 <AvatarFallback>{session?.user?.name?.charAt(0) || "?"}</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent>
+                        <DropdownMenuContent className="text-white border">
                             <DropdownMenuLabel>My Account</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Profile</DropdownMenuItem>
@@ -63,7 +59,10 @@ export function Navbar() {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 ) : (
-                    <Button onClick={() => signIn("discord", { redirectTo: "/dashboard" })}>
+                        <Button
+                            className="bg-primary text-primary-foreground hover:bg-primary/90"
+                            onClick={() => signIn("discord", { redirectTo: "/dashboard" })}
+                        >
                         Login
                     </Button>
                 )}
@@ -71,3 +70,4 @@ export function Navbar() {
         </nav>
     );
 }
+
