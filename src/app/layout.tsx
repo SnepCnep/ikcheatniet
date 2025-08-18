@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +23,8 @@ export default function RootLayout({
         <SessionProvider >
           <Navbar />
         </SessionProvider >
-
+        {children}
+        <Analytics />
         {/* Page Content */}
         <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
       </body>
