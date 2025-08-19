@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from "@/components/theme-provider"
@@ -33,6 +34,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
