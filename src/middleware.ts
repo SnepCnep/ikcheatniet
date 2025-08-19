@@ -17,6 +17,7 @@ export async function middleware(request: NextRequest) {
 
   if ((isAuthRoute || isNoUserRoute) && !token) {
     console.log("User is not authenticated, redirecting to login")
+    console.log(isAuthRoute, isNoUserRoute, token)
     const url = new URL("/", request.url)
     return NextResponse.redirect(url)
   }
