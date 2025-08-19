@@ -3,8 +3,10 @@ class Lookup {
 
 }
 
-if (!(global as any).lookup) {
-    (global as any).lookup = new Lookup();
-}
 
-export default (global as any).lookup;
+
+const globalForLookup = globalThis as unknown as { lookup?: Lookup };
+const lookup = globalForLookup.lookup || new Lookup();
+globalForLookup.lookup = lookup;
+
+export default lookup;
