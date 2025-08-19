@@ -20,7 +20,7 @@ type Team = {
 export default function TeamPage() {
     const teamMembers: Array<Team> = [
         {
-            name: "nQlix",
+            name: "nqlix",
             role: "Owner & Lead Developer",
             type: "owner",
             description: "Developer in backend systems and frontend.",

@@ -1,51 +1,33 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Shield, Server, Users, Globe, MessageCircle } from "lucide-react"
 import Image from "next/image"
 
-type PartnerLink = {
-  website?: string
-  discord?: string
-}
+import { Partner } from "@/types/partners"
 
-type Partner = {
-  name: string
-  type: string
-  description: string
-  banner?: string
-  logo?: string
-  links: PartnerLink
-  category: string
-  features: string[]
-  special?: boolean
-}
+import { useState, useEffect } from "react"
+
 
 export default function PartnersPage() {
-  const partners: Partner[] = [
-    {
-      name: "Sync AntiCheat",
-      type: "AntiCheat",
-      description:
-        "Leading organization in FiveM server security, providing advanced anti-cheat solutions and threat intelligence.",
-      banner: "https://cdn.discordapp.com/attachments/1390404300857016443/1407360240525246484/sync-anticheat-banner_1.png?ex=68a5d1dc&is=68a4805c&hm=bab77a2ecb3813616c8546524d51a9ad9492d788f9048038bf083c9e4702cf03&",
-      links: {
-        website: "https://sync-ac.xyz",
-        discord: "https://discord.gg/sync-ac",
-      },
-      category: "security",
-      features: ["Threat Intelligence", "Real-time Updates", "Community Reports"],
-      special: true,
-    },
-    {
-      name: "Coming Soon",
-      type: "Partner",
-      description: "A new partner will be announced soon. Stay tuned!",
-      banner: undefined,
-      links: {},
-      category: "security",
-      features: ["To Be Announced"],
+  const [partners, setPartners] = useState<Partner[]>([])
+
+  useEffect(() => {
+    const fetchPartners = async () => {
+      try {
+        const response = await fetch("/api/partners")
+        if (!response.ok) {
+          throw new Error("Failed to fetch partners")
+        }
+        const data = await response.json()
+        setPartners(Array.isArray(data) ? data : [])
+      } catch (error) {
+        console.error("Error fetching partners:", error)
+      }
     }
-  ];
+
+    fetchPartners()
+  }, [])
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -93,95 +75,100 @@ export default function PartnersPage() {
 
         {/* Partners Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {partners.map((partner, index) => (
-            <Card
-              key={index}
-              className={`bg-card/50 border-border hover:bg-card/80 transition-all duration-300 group ${partner.special
-                ? "relative border-2 border-primary shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:border-primary bg-gradient-to-br from-primary/5 to-accent/5 scale-105 hover:scale-110"
-                : ""
-                }`}
-            >
-              {partner.special && (
-                <div className="absolute -top-3 -right-3 z-10">
-                  <Badge className="bg-primary text-primary-foreground shadow-lg animate-bounce">
-                    ⭐ Featured Partner
-                  </Badge>
-                </div>
-              )}
-
-              <CardContent className="p-6">
-                {/* Partner Banner/Logo */}
-                <div className="mb-4 flex justify-center">
-                  <Image
-                    src={partner.banner || partner.logo || "/placeholder.svg"}
-                    alt={`${partner.name} ${partner.banner ? "banner" : "logo"}`}
-                    width={partner.banner ? 600 : 120}
-                    height={partner.banner ? 96 : 64}
-                    className={`${partner.banner ? "h-24 w-full" : "h-16"} object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.banner ? "rounded-lg" : ""} ${partner.special ? "drop-shadow-lg" : ""}`}
-                    style={{ width: partner.banner ? "100%" : undefined, height: partner.banner ? "6rem" : undefined }}
-                    priority={index === 0}
-                  />
-                </div>
-
-                {/* Partner Info */}
-                <div className="text-center mb-4">
-                  <h3 className={`text-xl font-semibold mb-2 ${partner.special ? "text-primary" : ""}`}>
-                    {partner.name}
-                  </h3>
-                  <Badge
-                    className={`mb-3 ${getCategoryColor(partner.category)} ${partner.special ? "shadow-md border-primary/30" : ""
-                      }`}
-                  >
-                    <span className="flex items-center gap-1">
-                      {getCategoryIcon(partner.category)}
-                      {partner.type}
-                    </span>
-                  </Badge>
-                </div>
-
-                <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{partner.description}</p>
-
-                {/* Features */}
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-1">
-                    {partner.features.map((feature, featureIndex) => (
-                      <Badge key={featureIndex} variant="outline" className="text-xs">
-                        {feature}
-                      </Badge>
-                    ))}
+          {partners && partners.length > 0 ? (
+            partners.map((partner: Partner, index: number) => (
+              <Card
+                key={index}
+                className={`bg-card/50 border-border hover:bg-card/80 transition-all duration-300 group ${partner.special
+                  ? "relative border-2 border-primary shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:border-primary bg-gradient-to-br from-primary/5 to-accent/5 scale-105 hover:scale-110"
+                  : ""
+                  }`}
+              >
+                {partner.special && (
+                  <div className="absolute -top-3 -right-3 z-10">
+                    <Badge className="bg-primary text-primary-foreground shadow-lg animate-bounce">
+                      ⭐ Featured Partner
+                    </Badge>
                   </div>
-                </div>
+                )}
 
-                {/* Links */}
-                <div className="flex gap-4 justify-center">
-                  {partner.links.website && (
-                    <a
-                      href={partner.links.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm"
+                <CardContent className="p-6">
+                  {/* Partner Banner/Logo */}
+                  <div className="mb-4 flex justify-center">
+                    <Image
+                      src={partner.banner || partner.logo || "/placeholder.svg"}
+                      alt={`${partner.name} ${partner.banner ? "banner" : "logo"}`}
+                      width={partner.banner ? 600 : 120}
+                      height={partner.banner ? 96 : 64}
+                      className={`${partner.banner ? "h-24 w-full" : "h-16"} object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.banner ? "rounded-lg" : ""} ${partner.special ? "drop-shadow-lg" : ""}`}
+                      style={{ width: partner.banner ? "100%" : undefined, height: partner.banner ? "6rem" : undefined }}
+                      priority={index === 0}
+                    />
+                  </div>
+
+                  {/* Partner Info */}
+                  <div className="text-center mb-4">
+                    <h3 className={`text-xl font-semibold mb-2 ${partner.special ? "text-primary" : ""}`}>
+                      {partner.name}
+                    </h3>
+                    <Badge
+                      className={`mb-3 ${getCategoryColor(partner.category ?? "")} ${partner.special ? "shadow-md border-primary/30" : ""}`}
                     >
-                      <Globe className="w-3 h-3" />
-                      Website
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                  {partner.links.discord && (
-                    <a
-                      href={partner.links.discord}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm"
-                    >
-                      <MessageCircle className="w-3 h-3" />
-                      Discord
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                      <span className="flex items-center gap-1">
+                        {getCategoryIcon(partner.category ?? "")}
+                        {partner.type}
+                      </span>
+                    </Badge>
+                  </div>
+
+                  <p className="text-muted-foreground text-sm mb-4 leading-relaxed">{partner.description}</p>
+
+                  {/* Features */}
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1">
+                      {partner.features && partner.features.length > 0 ? partner.features.map((feature: string, featureIndex: number) => (
+                        <Badge key={featureIndex} variant="outline" className="text-xs">
+                          {feature}
+                        </Badge>
+                      )) : <span className="text-xs text-muted-foreground italic">No features listed</span>}
+                    </div>
+                  </div>
+
+                  {/* Links */}
+                  <div className="flex gap-4 justify-center">
+                    {partner.links && partner.links.website && (
+                      <a
+                        href={partner.links.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm"
+                      >
+                        <Globe className="w-3 h-3" />
+                        Website
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                    {partner.links && partner.links.discord && (
+                      <a
+                        href={partner.links.discord}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm"
+                      >
+                        <MessageCircle className="w-3 h-3" />
+                        Discord
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <div className="col-span-full text-center text-muted-foreground py-12">
+              <p className="text-lg">No partners found at this time. Please check back later!</p>
+            </div>
+          )}
         </div>
 
         {/* Partnership CTA */}

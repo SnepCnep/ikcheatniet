@@ -82,14 +82,14 @@ model BlacklistUsers {
 
 model Partner {
   id          String        @id @default(cuid())
-  name        String
-  type        String
-  description String
+  name        String?
+  type        String?
+  description String?
   banner      String?
   logo        String?
-  links       Json
-  category    String
-  features    Json
+  links       Json?
+  category    String?
+  features    Json?
   special     Boolean?      @default(false)
 
   createdAt   DateTime      @default(now())

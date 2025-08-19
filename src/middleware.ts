@@ -15,17 +15,13 @@ export async function middleware(request: NextRequest) {
   // Get the token
   const token = await getToken({ req: request, secret: process.env.AUTH_SECRET })
 
-  // If the route requires authentication and there's no token, redirect to login
-  if (isAuthRoute && !token) {
+  if ((isAuthRoute || isNoUserRoute) && !token) {
+    console.log("User is not authenticated, redirecting to login")
     const url = new URL("/", request.url)
     return NextResponse.redirect(url)
   }
 
-  if (isNoUserRoute && !token) {
-    const url = new URL("/", request.url)
-    return NextResponse.redirect(url)
-  } 
-  const isStaff = token?.role === "admin" || token?.role === "owner"
+  const isStaff = token?.role === "admin" || token?.role === "owner" || false
   if (isNoUserRoute && !isStaff) {
     const url = new URL("/", request.url)
     return NextResponse.redirect(url)
