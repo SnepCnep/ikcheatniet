@@ -36,8 +36,8 @@ class PartnersHandler {
             category: "security",
             features: ["Threat Intelligence", "Real-time Updates", "Community Reports"],
             special: true,
-            createdAt: null,
-            updatedAt: null
+            createdAt: new Date(),
+            updatedAt: new Date()
             }
         ];
 
