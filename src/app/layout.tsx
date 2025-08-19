@@ -21,21 +21,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn("bg-background text-gray-900")}>
-        {/* Navbar */}
-        <SessionProvider >
-          <Navbar />
-        </SessionProvider >
-        <Analytics />
-        {/* Page Content */}
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
+          {/* Navbar */}
+          <SessionProvider >
+            <Navbar />
+          </SessionProvider >
+          {/* Page Content */}
           <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
