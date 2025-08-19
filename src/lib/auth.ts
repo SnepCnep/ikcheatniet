@@ -12,7 +12,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             authorization: { params: { scope: "identify" } },
         }),
     ],
-    secret: process.env.AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt",
     },
