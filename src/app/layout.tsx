@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from '@vercel/analytics/next';
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   title: "Ik Cheat Niet",
@@ -25,7 +26,14 @@ export default function RootLayout({
         </SessionProvider >
         <Analytics />
         {/* Page Content */}
-        <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );

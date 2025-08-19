@@ -12,6 +12,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import ModeToggle from "@/components/thema-switch"
 
 export function Navbar() {
     const { data: session, status } = useSession()
@@ -49,31 +50,45 @@ export function Navbar() {
                     </Link>
                 </div>
 
-                {/* Call-to-Action Button */}
-                {isAuth ? (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger>
-                            <Avatar>
-                                <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User Avatar"} />
-                                <AvatarFallback>{session?.user?.name?.charAt(0) || "?"}</AvatarFallback>
-                            </Avatar>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>Profile</DropdownMenuItem>
-                            {isNotUser && (
+                <div className="flex items-center gap-4">
+                    {/* <ModeToggle /> */}
+                    {isAuth ? (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="p-0 rounded-full">
+                                    <Avatar>
+                                        <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User Avatar"} />
+                                        <AvatarFallback>
+                                            {session?.user?.name?.split(" ").map(n => n[0]).join("").toUpperCase() || "?"}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuLabel>
+                                    {session?.user?.name || "My Account"}
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
                                 <DropdownMenuItem asChild>
-                                    <Link href="/admindash">Admin Dashboard</Link>
+                                    <Link href="/profile">Profile</Link>
                                 </DropdownMenuItem>
-                            )}
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                ) : (
-                    <Button onClick={() => signIn("discord", { redirectTo: "/lookup" })}>Login</Button>
-                )}
+                                {isNotUser && (
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/admindash">Admin Dashboard</Link>
+                                    </DropdownMenuItem>
+                                )}
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
+                                    Logout
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    ) : (
+                        <Button onClick={() => signIn("discord", { redirectTo: "/lookup" })}>
+                            Login
+                        </Button>
+                    )}
+                </div>
             </div>
         </nav>
     )
