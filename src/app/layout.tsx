@@ -22,7 +22,6 @@ export default function RootLayout({
         {/* Navbar */}
         <SessionProvider >
           <Navbar />
-          {children}
         </SessionProvider >
         <Analytics />
         {/* Page Content */}
