@@ -13,7 +13,11 @@ export async function middleware(request: NextRequest) {
   const isNoUserRoute = noUserRoutes.some((route) => pathname.startsWith(route))
 
   // Get the token
-  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET!,
+    secureCookie: process.env.NODE_ENV === "production",
+  })
 
   if ((isAuthRoute || isNoUserRoute) && !token) {
     console.log("User is not authenticated, redirecting to login")
