@@ -65,3 +65,33 @@ model VerificationToken {
  
   @@unique([identifier, token])
 }
+
+model Servers {
+  serverId String @id @unique
+  name     String
+  type     String?
+}
+
+model BlacklistUsers {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  reason    String? 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Partner {
+  id          String        @id @default(cuid())
+  name        String
+  type        String
+  description String
+  banner      String?
+  logo        String?
+  links       Json
+  category    String
+  features    Json
+  special     Boolean?      @default(false)
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}

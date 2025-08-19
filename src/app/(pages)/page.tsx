@@ -50,7 +50,7 @@ export default function Home() {
             </p>
             <div className="flex items-center justify-center gap-2 text-amber-500">
               <AlertTriangle className="w-5 h-5" />
-              <span className="text-sm">Always verify information and follow your server's policies</span>
+              <span className="text-sm">Always verify information and follow your server&#39;s policies</span>
             </div>
           </div>
         </div>

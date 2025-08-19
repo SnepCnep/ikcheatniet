@@ -190,7 +190,7 @@ export default function PartnersPage() {
             <CardContent className="p-8">
               <h2 className="text-2xl font-semibold mb-4">Become a Partner</h2>
               <p className="text-muted-foreground mb-6">
-                Interested in partnering with us to create a safer gaming environment? We're always open to
+                Interested in partnering with us to create a safer gaming environment? We&#39;re always open to
                 collaborating with organizations that share our values.
               </p>
               <a
