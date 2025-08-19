@@ -3,11 +3,18 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Shield, Server, Users, Globe, MessageCircle } from "lucide-react"
 import Image from "next/image"
-
-import { Partner } from "@/types/partners"
+import type { Partner as PrismaPartner } from "@prisma/client"
 
 import { useState, useEffect } from "react"
 
+type Partner = Omit<PrismaPartner, "features" | "links"> & {
+  features?: string[];
+  links?: {
+    website?: string;
+    discord?: string;
+    [key: string]: string | undefined;
+  };
+};
 
 export default function PartnersPage() {
   const [partners, setPartners] = useState<Partner[]>([])
@@ -79,10 +86,11 @@ export default function PartnersPage() {
             partners.map((partner: Partner, index: number) => (
               <Card
                 key={index}
-                className={`bg-card/50 border-border hover:bg-card/80 transition-all duration-300 group ${partner.special
-                  ? "relative border-2 border-primary shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:border-primary bg-gradient-to-br from-primary/5 to-accent/5 scale-105 hover:scale-110"
-                  : ""
-                  }`}
+                className={`bg-card/50 border-border hover:bg-card/80 transition-all duration-300 group ${
+                  partner.special
+                    ? "relative border-2 border-primary shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:border-primary bg-gradient-to-br from-primary/5 to-accent/5 scale-105 hover:scale-110"
+                    : ""
+                }`}
               >
                 {partner.special && (
                   <div className="absolute -top-3 -right-3 z-10">
@@ -101,7 +109,10 @@ export default function PartnersPage() {
                       width={partner.banner ? 600 : 120}
                       height={partner.banner ? 96 : 64}
                       className={`${partner.banner ? "h-24 w-full" : "h-16"} object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.banner ? "rounded-lg" : ""} ${partner.special ? "drop-shadow-lg" : ""}`}
-                      style={{ width: partner.banner ? "100%" : undefined, height: partner.banner ? "6rem" : undefined }}
+                      style={{
+                        width: partner.banner ? "100%" : undefined,
+                        height: partner.banner ? "6rem" : undefined,
+                      }}
                       priority={index === 0}
                     />
                   </div>
@@ -126,17 +137,21 @@ export default function PartnersPage() {
                   {/* Features */}
                   <div className="mb-4">
                     <div className="flex flex-wrap gap-1">
-                      {partner.features && partner.features.length > 0 ? partner.features.map((feature: string, featureIndex: number) => (
-                        <Badge key={featureIndex} variant="outline" className="text-xs">
-                          {feature}
-                        </Badge>
-                      )) : <span className="text-xs text-muted-foreground italic">No features listed</span>}
+                      {partner.features && partner.features.length > 0 ? (
+                        partner.features.map((feature: string, featureIndex: number) => (
+                          <Badge key={featureIndex} variant="outline" className="text-xs">
+                            {feature}
+                          </Badge>
+                        ))
+                      ) : (
+                        <span className="text-xs text-muted-foreground italic">No features listed</span>
+                      )}
                     </div>
                   </div>
 
                   {/* Links */}
                   <div className="flex gap-4 justify-center">
-                    {partner.links && partner.links.website && (
+                    {partner.links?.website && (
                       <a
                         href={partner.links.website}
                         target="_blank"
@@ -148,7 +163,7 @@ export default function PartnersPage() {
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
-                    {partner.links && partner.links.discord && (
+                    {partner.links?.discord && (
                       <a
                         href={partner.links.discord}
                         target="_blank"

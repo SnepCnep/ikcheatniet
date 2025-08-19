@@ -1,7 +1,6 @@
 import { Partner } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
-import lookup from "./lookup";
 
 class PartnersHandler {
     private Partners: Map<string, Partner>;
