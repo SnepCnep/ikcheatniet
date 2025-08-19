@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Shield, Server, Users, Globe, MessageCircle } from "lucide-react"
+import Image from "next/image"
 
 type PartnerLink = {
   website?: string
@@ -16,6 +17,7 @@ type Partner = {
   links: PartnerLink
   category: string
   features: string[]
+  special?: boolean
 }
 
 export default function PartnersPage() {
@@ -32,8 +34,18 @@ export default function PartnersPage() {
       },
       category: "security",
       features: ["Threat Intelligence", "Real-time Updates", "Community Reports"],
+      special: true,
+    },
+    {
+      name: "Coming Soon",
+      type: "Partner",
+      description: "A new partner will be announced soon. Stay tuned!",
+      banner: undefined,
+      links: {},
+      category: "security",
+      features: ["To Be Announced"],
     }
-  ]
+  ];
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -82,21 +94,44 @@ export default function PartnersPage() {
         {/* Partners Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {partners.map((partner, index) => (
-            <Card key={index} className="bg-card/50 border-border hover:bg-card/80 transition-all duration-300 group">
+            <Card
+              key={index}
+              className={`bg-card/50 border-border hover:bg-card/80 transition-all duration-300 group ${partner.special
+                ? "relative border-2 border-primary shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:border-primary bg-gradient-to-br from-primary/5 to-accent/5 scale-105 hover:scale-110"
+                : ""
+                }`}
+            >
+              {partner.special && (
+                <div className="absolute -top-3 -right-3 z-10">
+                  <Badge className="bg-primary text-primary-foreground shadow-lg animate-bounce">
+                    ⭐ Featured Partner
+                  </Badge>
+                </div>
+              )}
+
               <CardContent className="p-6">
                 {/* Partner Banner/Logo */}
                 <div className="mb-4 flex justify-center">
-                  <img
+                  <Image
                     src={partner.banner || partner.logo || "/placeholder.svg"}
                     alt={`${partner.name} ${partner.banner ? "banner" : "logo"}`}
-                    className={`${partner.banner ? "h-24 w-full" : "h-16"} object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.banner ? "rounded-lg" : ""}`}
+                    width={partner.banner ? 600 : 120}
+                    height={partner.banner ? 96 : 64}
+                    className={`${partner.banner ? "h-24 w-full" : "h-16"} object-contain opacity-80 group-hover:opacity-100 transition-opacity ${partner.banner ? "rounded-lg" : ""} ${partner.special ? "drop-shadow-lg" : ""}`}
+                    style={{ width: partner.banner ? "100%" : undefined, height: partner.banner ? "6rem" : undefined }}
+                    priority={index === 0}
                   />
                 </div>
 
                 {/* Partner Info */}
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-semibold mb-2">{partner.name}</h3>
-                  <Badge className={`mb-3 ${getCategoryColor(partner.category)}`}>
+                  <h3 className={`text-xl font-semibold mb-2 ${partner.special ? "text-primary" : ""}`}>
+                    {partner.name}
+                  </h3>
+                  <Badge
+                    className={`mb-3 ${getCategoryColor(partner.category)} ${partner.special ? "shadow-md border-primary/30" : ""
+                      }`}
+                  >
                     <span className="flex items-center gap-1">
                       {getCategoryIcon(partner.category)}
                       {partner.type}
@@ -118,7 +153,7 @@ export default function PartnersPage() {
                 </div>
 
                 {/* Links */}
-                <div className="flex flex-col gap-2">
+                <div className="flex gap-4 justify-center">
                   {partner.links.website && (
                     <a
                       href={partner.links.website}
@@ -159,7 +194,7 @@ export default function PartnersPage() {
                 collaborating with organizations that share our values.
               </p>
               <a
-                href="https://discord.gg/Pk3ZuYw6jX"
+                href="mailto:partnerships@ikcheatniet.nl"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors"
               >
                 <ExternalLink className="w-4 h-4" />

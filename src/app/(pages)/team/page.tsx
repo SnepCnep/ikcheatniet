@@ -1,40 +1,43 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Github, Twitter } from "lucide-react"
+import Image from "next/image"
 
 type Social = {
     github?: string;
     twitter?: string;
 };
 
+type Team = {
+    name: string;
+    role: string;
+    type: string;
+    description: string;
+    avatar: string;
+    social: Social;
+}
+
 export default function TeamPage() {
-    const teamMembers: Array<{
-        name: string;
-        role: string;
-        type: string;
-        description: string;
-        avatar: string;
-        social: Social;
-    }> = [
-            {
-                name: "nQlix",
-                role: "Owner & Lead Developer",
-                type: "owner",
-                description: "Developer in backend systems and frontend.",
-                avatar: "https://cdn.discordapp.com/avatars/1369851724260446334/053c4ff1363d9aff96f892db274fb649.png?size=1024",
-                social: {},
+    const teamMembers: Array<Team> = [
+        {
+            name: "nQlix",
+            role: "Owner & Lead Developer",
+            type: "owner",
+            description: "Developer in backend systems and frontend.",
+            avatar: "https://cdn.discordapp.com/avatars/1369851724260446334/053c4ff1363d9aff96f892db274fb649.png?size=1024",
+            social: {},
+        },
+        {
+            name: "Scarlot",
+            role: "Owner & Lead Developer",
+            type: "owner",
+            description: "Specializes in database optimization and API development for high-performance cheater detection.",
+            avatar: "https://cdn.discordapp.com/avatars/483357154502377473/944a6d63a09c860f871e8c9d615e3a6d.png?size=1024",
+            social: {
+                github: "https://github.com/Scarlot-Ruskipy",
             },
-            {
-                name: "Scarlot",
-                role: "Owner & Lead Developer",
-                type: "owner",
-                description: "Specializes in database optimization and API development for high-performance cheater detection.",
-                avatar: "https://cdn.discordapp.com/avatars/483357154502377473/944a6d63a09c860f871e8c9d615e3a6d.png?size=1024",
-                social: {
-                    github: "https://github.com/Scarlot-Ruskipy",
-                },
-            },
-        ];
+        },
+    ];
 
     const getRoleColor = (type: string) => {
         switch (type) {
@@ -66,12 +69,14 @@ export default function TeamPage() {
                 {/* Team Grid */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {teamMembers.map((member, index) => (
-                        <Card key={index} className="bg-card/50 border-border hover:bg-card/80 transition-colors">
-                            <CardContent className="p-6 text-center">
-                                <img
+                        <Card key={index} className="bg-card/50 border-border hover:bg-card/80 transition-colors shadow-lg shadow-primary/40 ">
+                            <CardContent>
+                                <Image
                                     src={member.avatar || "/placeholder.svg"}
                                     alt={member.name}
-                                    className="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-primary/20"
+                                    width={96}
+                                    height={96}
+                                    className="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-primary/20 object-cover"
                                 />
                                 <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
                                 <Badge className={`mb-3 ${getRoleColor(member.type)}`}>{member.role}</Badge>
@@ -105,6 +110,6 @@ export default function TeamPage() {
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
