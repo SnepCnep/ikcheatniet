@@ -3,15 +3,31 @@ import Discord from "next-auth/providers/discord"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import prisma from "@/lib/prisma"
 
-// Types
-
-
 export const { handlers, auth, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
-    providers: [Discord({
-        clientId: process.env.DISCORD_CLIENT_ID!,
-        clientSecret: process.env.DISCORD_CLIENT_SECRET!,
-        authorization: { params: { scope: "identify" } },
-    })
+    providers: [
+        Discord({
+            clientId: process.env.DISCORD_CLIENT_ID!,
+            clientSecret: process.env.DISCORD_CLIENT_SECRET!,
+            authorization: { params: { scope: "identify" } },
+        }),
     ],
+    session: {
+        strategy: "jwt",
+    },
+    callbacks: {
+        async jwt({ token, user }) {
+            if (user) {
+                token.role = user.role;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            if (session.user) {
+                //session.user.id = token.sub as string;
+                session.user.role = token.role as string;
+            }
+            return session;
+        },
+    },
 })
